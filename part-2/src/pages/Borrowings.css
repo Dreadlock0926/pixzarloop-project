@@ -3,6 +3,15 @@
     margin-bottom: 1rem;
 }
 
+.check-icon {
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.check-icon:hover {
+    color: var(--primary-color);
+}
+
 .current-borrowings-container {
     margin-top: 2rem;
     display: flex;

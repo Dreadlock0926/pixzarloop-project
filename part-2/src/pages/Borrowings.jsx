@@ -25,14 +25,14 @@ function Borrowings() {
               <td>123456789</td>
               <td>2022-12-31</td>
               <td>John Doe</td>
-              {borrowingsType !== "Returned" && <td title="Book returned"><FaCheck/></td>}
+              {borrowingsType !== "Returned" && <td title="Book returned"><FaCheck className="check-icon"/></td>}
             </tr>
             <tr>
               <td>Book 2</td>
               <td>987654321</td>
               <td>2022-12-31</td>
               <td>Jane Doe</td>
-              {borrowingsType !== "Returned" && <td title="Book returned"><FaCheck/></td>}
+              {borrowingsType !== "Returned" && <td title="Book returned"><FaCheck className="check-icon"/></td>}
             </tr>
           </tbody>
         </table>
