@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Borrowings from './pages/Borrowings'
+import Library from './pages/Library'
 import './index.css'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/library" element={<Library />} />
         <Route path="/borrowings" element={<Borrowings />} />
       </Routes>
     </Router>
