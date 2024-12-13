@@ -1,0 +1,16 @@
+.library-navbar {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    align-items: center;
+    background-color: var(--primary-color);
+    color: white;
+    list-style-type: none;
+}
+
+.library-navbar-element {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding-right: 1rem;
+}
