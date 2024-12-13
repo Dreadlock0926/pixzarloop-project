@@ -1,0 +1,35 @@
+.current-borrowings-title {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.current-borrowings-container {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.current-borrowings {
+    width: 60%;
+    border-collapse: collapse;
+}
+
+.current-borrowings th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem;
+}
+
+.current-borrowings td {
+    padding: 0.5rem;
+    border: 1px solid var(--secondary-color);
+}
+
+.current-borrowings th,
+.current-borrowings td {
+    text-align: center;
+}
+
+
