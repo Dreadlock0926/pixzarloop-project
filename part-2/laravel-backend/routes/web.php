@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthorController;
@@ -18,6 +19,9 @@ Route::get('/token', function () {
     return csrf_token(); 
 });
 
+// Auth routes
+Route::post('login', [AuthController::class, 'login']);
+
 // User routes
 Route::post('users', [UserController::class, 'store']);
 
@@ -34,7 +38,7 @@ Route::resource('members', MemberController::class);
 Route::resource('authors', AuthorController::class);
 
 // Genre routes
-Route::resource('genres', GenreController::class);
+Route::resource('genres', GenreController::class)->middleware('auth:sanctum', ['only' => ['store']]);
 
 // Role routes
 Route::resource('roles', RoleController::class);
