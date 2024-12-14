@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
@@ -18,6 +19,9 @@ Route::get('/token', function () {
 
 // User routes
 Route::resource('users', UserController::class);
+
+// Member routes
+Route::resource('members', MemberController::class);
 
 // Author routes
 Route::resource('authors', AuthorController::class);
