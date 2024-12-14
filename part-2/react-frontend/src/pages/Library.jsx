@@ -46,16 +46,16 @@ function Library() {
         );
     }
 
-    function Book() {
+    function Book( {book} ) {
         return (
           <div className="book-container">
               <div className="book-details">
                 <div className="book-middle-row">
-                    <h3>Book Title</h3>
-                    <p>Author</p>
+                    <h3> {book.name} </h3>
+                    <p> {book.author.name} </p>
                 </div>
                 <div className="book-bottom-row">
-                    <p>ISBN: 1234567890</p>
+                    <p>ISBN: {book.isbn}</p>
                 </div>
               </div>
               <div className="book-actions">
@@ -71,16 +71,7 @@ function Library() {
     function BookList() {
         return (
           <section className="book-list">
-            <Book />
-            <Book />
-            <Book />
-            <Book />
-            <Book />
-            <Book />
-            <Book />
-            <Book />
-            <Book />
-            <Book />
+            { books && books.map(book => <Book key={book.id} book={book} />) }
           </section>
         );
       }
