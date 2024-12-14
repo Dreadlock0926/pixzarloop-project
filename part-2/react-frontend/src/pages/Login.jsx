@@ -1,10 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import "./Login.css";
+import axios from "axios";
 
 function Login() {
 
     const [page, setPage] = useState("login");
+    const [loginRegisterDetails, setLoginRegisterDetails] = useState({
+        email: "",
+        password: "",
+        confirmPassword: "",
+        name: "",
+    });
+
+    // helper functions
+    const login = () => {
+        const { email, password } = loginRegisterDetails;
+        axios.post("http://localhost:8000/api/login", { email, password })
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    const register = () => {
+        const { email, password, name } = loginRegisterDetails;
+        axios.post("http://localhost:8000/api/users", { email, password, name })
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    } 
+
+    // submit details
+    const submitDetails = async (e) => {
+        e.preventDefault();
+
+        if (page === "login") {
+            login();
+        } else {
+            register();
+        }
+
+    }
 
     return (
     <>
@@ -15,19 +57,25 @@ function Login() {
         <main className="main-login">
             <div className="login-container">
                 <h1> {page === "login" ? "Login" : "Register"} </h1>
-                <form>
+                <form onSubmit={submitDetails}>
+                    {page !== "login" &&
+                    <div className="form-group">
+                        <label htmlFor="name">Name</label>
+                        <input type="text" id="name" name="name" required onChange={(e) => setLoginRegisterDetails({...loginRegisterDetails, name: e.target.value})} />
+                    </div>
+                    }
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input type="email" id="email" name="email" />
+                        <input type="email" id="email" name="email" required onChange={(e) => setLoginRegisterDetails({...loginRegisterDetails, email: e.target.value})} />
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" name="password" />
+                        <input type="password" id="password" name="password" required onChange={(e) => setLoginRegisterDetails({...loginRegisterDetails, password: e.target.value})} />
                     </div>
                     {page !== "login" &&
                     <div className="form-group">
                         <label htmlFor="password">Confirm Password</label>
-                        <input type="password" id="password" name="password" />
+                        <input type="password" id="password" name="password" required />
                     </div>
                     }
                     <button type="submit"> {page === "login" ? "Login" : "Register"} </button>
