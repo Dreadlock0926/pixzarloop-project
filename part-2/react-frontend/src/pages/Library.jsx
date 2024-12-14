@@ -75,7 +75,7 @@ function Library() {
     function BookList() {
         return (
           <section className="book-list">
-            { books && books.map(book => <Book key={book.id} book={book} />) }
+            { books && books.map(book => <Book key={book.book_id} book={book} />) }
           </section>
         );
       }
