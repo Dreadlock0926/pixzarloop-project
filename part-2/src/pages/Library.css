@@ -4,6 +4,24 @@
     align-items: center;
 }
 
+.library-heading {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-top: 2rem;
+}
+
+.add-icon {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    color: white;
+    margin-right: 1rem;
+}
+
+.add-icon:hover {
+    color: var(--secondary-color);
+}
+
 .search-tab {
     background-color: var(--primary-color);
     padding: 1rem;

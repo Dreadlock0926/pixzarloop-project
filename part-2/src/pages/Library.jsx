@@ -5,12 +5,14 @@ import { FaRegEye } from "react-icons/fa";
 import { RxUpdate } from "react-icons/rx";
 import { FaTrash } from "react-icons/fa";
 import { FaHandsHelping } from "react-icons/fa";
+import { IoIosAddCircle } from "react-icons/io";
 
 function Library() {
 
     function SearchTab() {
         return (
           <section className="search-tab">
+            <IoIosAddCircle className="add-icon" />
             <input type="text" placeholder="Search books" className="search-input" />
             <select className="search-filter">
                 <option value="all">All</option>
@@ -69,6 +71,7 @@ function Library() {
     
           <main>
             <div className="library-container">
+                <h1 className="library-heading">Library</h1>
                 <SearchTab />
                 <BookList />
             </div>
