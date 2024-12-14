@@ -96,3 +96,27 @@
     border: none;
     border-radius: 5px;
 }
+
+.add-book-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.add-book-button:hover {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+.select-input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: none;
+    width: 100%;
+    border-radius: 5px;
+    margin-right: 1rem;
+}

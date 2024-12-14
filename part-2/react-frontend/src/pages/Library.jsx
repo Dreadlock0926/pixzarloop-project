@@ -8,12 +8,15 @@ import { IoIosAddCircle } from "react-icons/io";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../components/UserContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Library() {
 
     const { user } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const [books, setBooks] = useState([]);
+
 
     useEffect(() => {
       
@@ -35,7 +38,8 @@ function Library() {
     function SearchTab() {
         return (
           <section className="search-tab">
-            <IoIosAddCircle className="add-icon" />
+            <button className="add-book-button" onClick={() => navigate("/createbook")}> Add Book </button>
+            <button className="add-book-button" onClick={() => navigate("/createmember")}> Add Member </button>
             <input type="text" placeholder="Search books" className="search-input" />
             <select className="search-filter">
                 <option value="all">All</option>

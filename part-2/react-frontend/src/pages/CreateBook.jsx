@@ -140,6 +140,7 @@ function CreateBook() {
                             id="genre" 
                             name="genre" 
                             required 
+                            className="select-input"
                             onChange={(e) => setBookDetails({ ...bookDetails, genre_id: e.target.value })}
                         >
                             <option value="">Select Genre</option>
@@ -157,6 +158,7 @@ function CreateBook() {
                             id="author" 
                             name="author" 
                             required 
+                            className="select-input"
                             onChange={(e) => setBookDetails({ ...bookDetails, author_id: e.target.value })}
                         >
                             <option value="">Select Author</option>
