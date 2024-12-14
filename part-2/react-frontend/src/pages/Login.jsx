@@ -2,8 +2,18 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import "./Login.css";
 import axios from "axios";
+import UserContext from "../components/UserContext";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+
+    const { user, setUser } = useContext(UserContext);
+    const navigate = useNavigate();
+
+    if (user) {
+        navigate("/library");
+    }
 
     const [page, setPage] = useState("login");
     const [loginRegisterDetails, setLoginRegisterDetails] = useState({
@@ -18,7 +28,7 @@ function Login() {
         const { email, password } = loginRegisterDetails;
         axios.post("http://localhost:8000/api/login", { email, password })
         .then(res => {
-            console.log(res.data);
+            setUser(res.data);
         })
         .catch(err => {
             console.log(err);
@@ -29,7 +39,7 @@ function Login() {
         const { email, password, name } = loginRegisterDetails;
         axios.post("http://localhost:8000/api/users", { email, password, name })
         .then(res => {
-            console.log(res.data);
+            setPage("login");
         })
         .catch(err => {
             console.log(err);
