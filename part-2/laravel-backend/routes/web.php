@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,9 @@ Route::get('/', function () {
 Route::get('/token', function () {
     return csrf_token(); 
 });
+
+// User routes
+Route::resource('users', UserController::class);
 
 // Author routes
 Route::resource('authors', AuthorController::class);
