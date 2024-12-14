@@ -87,5 +87,3 @@ $user = array(
 
 manageUser($user, 'add', $connection);
 
-?>
-

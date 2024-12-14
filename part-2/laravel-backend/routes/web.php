@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\RoleController;
@@ -16,6 +17,12 @@ Route::get('/', function () {
 Route::get('/token', function () {
     return csrf_token(); 
 });
+
+// Borrowing routes
+Route::get('borrowings', [BorrowingController::class, 'index']);
+Route::post('borrowings', [BorrowingController::class, 'store']);
+Route::put('borrowings/{borrow_id}', [BorrowingController::class, 'update']);
+Route::put('borrowings/{borrow_id}/return', [BorrowingController::class, 'markReturned']);
 
 // User routes
 Route::resource('users', UserController::class);
