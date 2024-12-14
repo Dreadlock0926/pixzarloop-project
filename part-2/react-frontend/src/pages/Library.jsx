@@ -1,17 +1,36 @@
 import Navbar from "../components/Navbar";
 import "./Library.css";
-
 import { FaRegEye } from "react-icons/fa";
 import { RxUpdate } from "react-icons/rx";
 import { FaTrash } from "react-icons/fa";
 import { FaHandsHelping } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../components/UserContext";
+import axios from "axios";
 
 function Library() {
 
     const { user } = useContext(UserContext);
+
+    const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+      
+      // get books from the server with authorization token
+      axios.get("http://localhost:8000/api/books/", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(user).token}`
+        }
+      }).then(response => {
+        setBooks(response.data);
+      }
+      ).catch(error => {
+        console.log(error);
+      }
+      );
+
+    }, [user]);
 
     function SearchTab() {
         return (

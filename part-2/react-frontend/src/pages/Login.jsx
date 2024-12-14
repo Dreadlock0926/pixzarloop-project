@@ -11,9 +11,11 @@ function Login() {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
 
-    if (user) {
-        navigate("/library");
-    }
+    useEffect(() => {
+        if (user) {
+            navigate("/library");
+        }
+    }, [user, navigate]);
 
     const [page, setPage] = useState("login");
     const [loginRegisterDetails, setLoginRegisterDetails] = useState({
@@ -29,10 +31,12 @@ function Login() {
         axios.post("http://localhost:8000/api/login", { email, password })
         .then(res => {
             setUser(res.data);
+            localStorage.setItem("user", JSON.stringify(res.data));
             navigate("/library");
         })
         .catch(err => {
-            console.log(err);
+            localStorage.removeItem("user");
+            navigate("/login");
         });
     }
 
