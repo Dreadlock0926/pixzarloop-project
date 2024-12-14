@@ -18,7 +18,7 @@ class BorrowingController extends Controller
             return response()->json(['error' => 'No borrowings found'], 404);
         }
 
-        return Borrowing::all();
+        return Borrowing::with(['book', 'member'])->get();
     }
 
     /**

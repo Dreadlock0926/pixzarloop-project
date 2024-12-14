@@ -1,8 +1,37 @@
 import Navbar from "../components/Navbar";
 import "./Borrowings.css";
 import { FaCheck } from "react-icons/fa";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../components/UserContext";
+import axios from "axios";
 
 function Borrowings() {
+
+  const { user } = useContext(UserContext);
+
+  const [borrowings, setBorrowings] = useState([]);
+
+  useEffect(() => {
+
+    try {
+      axios.get("http://localhost:8000/api/borrowings/", {
+        headers: {
+          Authorization: `Bearer ${JSON.parse(user).token}`
+        }
+      }).then(response => {
+        setBorrowings(response.data);
+        console.log(response.data);
+      }
+      ).catch(error => {
+        console.log(error);
+      }
+      );
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }, [user]);
 
   function BorrowingsTable({borrowingsType}) {
 
@@ -20,20 +49,15 @@ function Borrowings() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Book 1</td>
-              <td>123456789</td>
-              <td>2022-12-31</td>
-              <td>John Doe</td>
-              {borrowingsType !== "Returned" && <td title="Book returned"><FaCheck className="check-icon"/></td>}
-            </tr>
-            <tr>
-              <td>Book 2</td>
-              <td>987654321</td>
-              <td>2022-12-31</td>
-              <td>Jane Doe</td>
-              {borrowingsType !== "Returned" && <td title="Book returned"><FaCheck className="check-icon"/></td>}
-            </tr>
+            {borrowings.map((borrowing) => (
+              <tr key={borrowing.borrow_id}>
+                <td>{borrowing.book.name}</td>
+                <td>{borrowing.book.isbn}</td>
+                <td>{borrowing.return_date}</td>
+                <td>{borrowing.member.name}</td>
+                {borrowingsType !== "Returned" && <td><FaCheck className="return-icon" /></td>}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -50,8 +74,6 @@ function Borrowings() {
 
       <main>
         <BorrowingsTable borrowingsType="Current" />
-        <BorrowingsTable borrowingsType="Overdue" />
-        <BorrowingsTable borrowingsType="Returned" />
       </main>
 
     </>
