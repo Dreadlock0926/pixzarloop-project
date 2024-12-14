@@ -87,3 +87,9 @@ $user = array(
 
 manageUser($user, 'add', $connection);
 
+// 1. Gave more meaningful names to the functions and variables
+// 2. Used a switch statement instead of if-else
+// 3. Made each operation a separate function for better readability
+// 4. Made the SQL statements into Stored Procedures for better security and seperation
+// 5. Made the SQL connection a function for reusability
+// 6. Used formatted strings for better readability
