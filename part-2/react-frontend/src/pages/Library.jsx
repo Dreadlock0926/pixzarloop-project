@@ -6,8 +6,12 @@ import { RxUpdate } from "react-icons/rx";
 import { FaTrash } from "react-icons/fa";
 import { FaHandsHelping } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
+import { useContext } from "react";
+import UserContext from "../components/UserContext";
 
 function Library() {
+
+    const { user } = useContext(UserContext);
 
     function SearchTab() {
         return (

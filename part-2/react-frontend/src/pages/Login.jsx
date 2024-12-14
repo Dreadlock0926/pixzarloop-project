@@ -29,6 +29,7 @@ function Login() {
         axios.post("http://localhost:8000/api/login", { email, password })
         .then(res => {
             setUser(res.data);
+            navigate("/library");
         })
         .catch(err => {
             console.log(err);
