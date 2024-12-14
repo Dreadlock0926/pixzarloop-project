@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\GenreController;
@@ -12,6 +13,13 @@ Route::get('/', function () {
 Route::get('/token', function () {
     return csrf_token(); 
 });
+
+// Author routes
+Route::get('authors', [AuthorController::class, 'index']);
+Route::post('authors', [AuthorController::class, 'store']);
+Route::get('authors/{id}', [AuthorController::class, 'show']);
+Route::put('authors/{id}', [AuthorController::class, 'update']);
+Route::delete('authors/{id}', [AuthorController::class, 'destroy']);
 
 // Genre routes
 Route::get('genres', [GenreController::class, 'index']);

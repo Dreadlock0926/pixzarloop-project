@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Genre;
+use App\Models\Author;
 use Illuminate\Http\Request;
 
-class GenreController extends Controller
+class AuthorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(Genre::all());
+        return response()->json(Author::all());
     }
 
     /**
@@ -21,12 +21,12 @@ class GenreController extends Controller
     public function store(Request $request)
     {
         $request -> validate([
-            'name' => 'required|string|max:50'
+            'name' => 'required|string|max:50',
         ]);
 
-        $genre = Genre::create($request->all());
+        $author = Author::create($request->all());
 
-        return response()->json($genre, 201);
+        return response()->json($author, 201);
     }
 
     /**
@@ -34,7 +34,7 @@ class GenreController extends Controller
      */
     public function show(string $id)
     {
-        return response()->json(Genre::findOrFail($id));
+        return response()->json(Author::findOrFail($id));
     }
 
     /**
@@ -43,13 +43,13 @@ class GenreController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'name' => 'sometimes|required|string|max:50'
+            'name' => 'sometimes|required|string|max:50',
         ]);
 
-        $genre = Genre::findOrFail($id);
-        $genre->update($request->all());
+        $author = Author::findOrFail($id);
+        $author->update($request->all());
 
-        return response()->json($genre);
+        return response()->json($author);
     }
 
     /**
@@ -57,9 +57,10 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        $genre = Genre::findOrFail($id);
-        $genre->delete();
+        $author = Author::findOrFail($id);
+        $author->delete();
 
-        return response()->json(['message' => 'Genre deleted successfully'], 200);
+        return response()->json(['message' => 'Author deleted successfully'], 200);
+
     }
 }
