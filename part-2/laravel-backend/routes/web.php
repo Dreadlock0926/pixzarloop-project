@@ -18,14 +18,14 @@ Route::get('/token', function () {
     return csrf_token(); 
 });
 
+// User routes
+Route::post('users', [UserController::class, 'store']);
+
 // Borrowing routes
 Route::get('borrowings', [BorrowingController::class, 'index']);
 Route::post('borrowings', [BorrowingController::class, 'store']);
 Route::put('borrowings/{borrow_id}', [BorrowingController::class, 'update']);
 Route::put('borrowings/{borrow_id}/return', [BorrowingController::class, 'markReturned']);
-
-// User routes
-Route::resource('users', UserController::class);
 
 // Member routes
 Route::resource('members', MemberController::class);
