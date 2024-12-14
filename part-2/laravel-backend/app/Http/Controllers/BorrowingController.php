@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Borrowing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BorrowingController extends Controller
 {
@@ -13,6 +14,10 @@ class BorrowingController extends Controller
      */
     public function index()
     {
+        if (Borrowing::all()->isEmpty()) {
+            return response()->json(['error' => 'No borrowings found'], 404);
+        }
+
         return Borrowing::all();
     }
 
@@ -21,13 +26,18 @@ class BorrowingController extends Controller
      */
     public function store(Request $request)
     {
-        $request -> validate([
-            'book_id' => 'required|exists:books,book_id',
-            'member_id' => 'required|exists:members,member_id',
-            'librarian_id' => 'required|exists:users,user_id',
+
+        $validator = Validator::make($request->all(), [
+            'book_id' => 'required|exists:books,id',
+            'member_id' => 'required|exists:members,id',
+            'librarian_id' => 'required|exists:users,id',
             'borrow_date' => 'required|date',
             'return_date' => 'required|date',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
 
         $borrowing = Borrowing::create([
             'book_id' => $request->book_id,
@@ -48,11 +58,24 @@ class BorrowingController extends Controller
 
     public function update(Request $request, $borrow_id) 
     {
+
+        if (!is_numeric($borrow_id)) {
+            return response()->json(['error' => 'Invalid borrowing ID'], 400);
+        }
+
+        if (!Borrowing::find($borrow_id)) {
+            return response()->json(['error' => 'Borrowing not found'], 404);
+        }
+
         // only dates can be updated
-        $request -> validate([
+        $validator = Validator::make($request->all(), [
             'borrow_date' => 'sometimes|required|date',
             'return_date' => 'sometimes|required|date',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
 
         $borrowing = Borrowing::findOrFail($borrow_id);
         $borrowing->update($request->all());
@@ -62,6 +85,15 @@ class BorrowingController extends Controller
 
     public function markReturned($borrow_id)
     {
+
+        if (!is_numeric($borrow_id)) {
+            return response()->json(['error' => 'Invalid borrowing ID'], 400);
+        }
+
+        if (!Borrowing::find($borrow_id)) {
+            return response()->json(['error' => 'Borrowing not found'], 404);
+        }
+
         $borrowing = Borrowing::findOrFail($borrow_id);
         $borrowing->update(['returned' => true]);
 

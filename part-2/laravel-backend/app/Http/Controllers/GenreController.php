@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GenreController extends Controller
 {
@@ -12,6 +13,11 @@ class GenreController extends Controller
      */
     public function index()
     {
+
+        if (Genre::all()->isEmpty()) {
+            return response()->json(['error' => 'No genres found'], 404);
+        }
+
         return response()->json(Genre::all());
     }
 
@@ -20,9 +26,13 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        $request -> validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:50'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
 
         $genre = Genre::create($request->all());
 
@@ -34,6 +44,14 @@ class GenreController extends Controller
      */
     public function show(string $id)
     {
+        if (!is_numeric($id)) {
+            return response()->json(['error' => 'Invalid genre ID'], 400);
+        }
+
+        if (!Genre::find($id)) {
+            return response()->json(['error' => 'Genre not found'], 404);
+        }
+
         return response()->json(Genre::findOrFail($id));
     }
 
@@ -42,9 +60,17 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'name' => 'sometimes|required|string|max:50'
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:50'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        if (!Genre::find($id)) {
+            return response()->json(['error' => 'Genre not found'], 404);
+        }
 
         $genre = Genre::findOrFail($id);
         $genre->update($request->all());
@@ -57,6 +83,15 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
+
+        if (!is_numeric($id)) {
+            return response()->json(['error' => 'Invalid genre ID'], 400);
+        }
+
+        if (!Genre::find($id)) {
+            return response()->json(['error' => 'Genre not found'], 404);
+        }
+
         $genre = Genre::findOrFail($id);
         $genre->delete();
 
